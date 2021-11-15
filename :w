@@ -9,7 +9,12 @@ fn read_file_as_string() -> Result<String, Box<dyn Error>> {
 }
 
 pub fn part1() -> Result<i32, &'static str> {
-    let file = read_file_as_string().map_err(|_| "Could not read file")?;
+    let file = match read_file_as_string() {
+        Ok(file) => file,
+        Err(error) => {
+            return Err(error);
+        }
+    }
 
     let mut floor = 0;
     for c in file.chars() {
